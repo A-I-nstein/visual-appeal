@@ -49,7 +49,7 @@ st.markdown('<h1 style = "color:#66bfbf; font-size: 75px; text-align:center; fon
 st.markdown('<h2 style = "color:#f76b8a; text-align: center;">Analysing Visual Appeals', unsafe_allow_html=True)
 st.markdown('<h3 style = "color:#66bfbf; text-align: center;">Developed by TMT-West Solutions Team', unsafe_allow_html=True)
 
-st.subheader("Paste the link here !")
+st.subheader("Paste an image's link here to analyse it's visual appeal")
 link = st.text_area("")
 st.text("")
 
