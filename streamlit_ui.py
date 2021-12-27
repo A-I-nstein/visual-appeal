@@ -56,6 +56,8 @@ st.text("")
 
 predict = st.button("Check Visual Appeal")
 
+st.text("")
+
 progress_bar = st.progress(0)
 
 col1, col2, col3, col4, col5 = st.columns(5)
@@ -80,6 +82,26 @@ if predict:
             image = imutils.url_to_image(link)
             image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 
+            message = ""
+            for i in result:
+                if i=="Collage":
+                    if result[i][0]==True:
+                        message = message+"The image is a Collage.\n"
+                if i=="Low Contrast":
+                    if result[i][0]==True:
+                        message = message+"The image is of Low Contrast.\n"
+                if i=="Out of Focus":
+                    if result[i][0]==True:
+                        message = message+"The image is Out Of Focus.\n"
+                if i=="Color Inverted":
+                    if result[i][0]==True:
+                        message = message+"The image is Color Inverted.\n"
+                if i=="Excessive Blank Space":
+                    if result[i][0]==True:
+                        message = message+"The image has Excessive Blank Space.\n"
+
+            st.subheader("Conclusion")
+            st.text(message)
             st.subheader("Original Image")
             st.image(image)
 
