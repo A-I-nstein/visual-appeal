@@ -33,7 +33,7 @@ def draw_on_image(link, result, label):
     elif label == 'Low Contrast':
         img_yuv = rgb2yuv(sample)
         Y = img_yuv[:, :, 0]
-        fig, ax = plt.subplots()
+        fig, ax = plt.subplots(figsize=image.shape[:2])
         sb.heatmap(Y, cbar = False, xticklabels = False, yticklabels = False)
         return fig
 
