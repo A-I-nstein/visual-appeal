@@ -4,7 +4,11 @@ import cv2
 import time
 import imutils
 import requests
+import numpy as np
+import seaborn as sb
 import streamlit as st
+import matplotlib.pyplot as plt
+from skimage.color import rgb2yuv
 
 #####-----Backend Elements-----#####
 
@@ -24,6 +28,18 @@ def draw_on_image(link, result, label):
         for i in result[label][1]:
             x1, y1, x2, y2 = i[0], i[1], i[2], i[3]
             cv2.line(sample, (x1,y1), (x2,y2), (255, 0, 0), 5)
+
+    elif label == 'Low Contrast':
+        img_yuv = rgb2yuv(sample)
+        Y = img_yuv[:, :, 0]
+        fig, ax = plt.subplots()
+        sb.heatmap(Y, cbar = False, xticklabels = False, yticklabels = False)
+        return fig
+
+    elif label == 'Out of Focus':
+        gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+        laplacian = cv2.Laplacian(gray, cv2.CV_64F)
+        return laplacian
 
     else:
         cnts = result[label][1]
@@ -137,7 +153,7 @@ if predict:
             with visual_appeal_2:
                 st.subheader("Low Contrast")
                 processed_image_2 = draw_on_image(link, result, 'Low Contrast')
-                st.image(processed_image_2)
+                st.pyplot(processed_image_2)
                 st.text('Low Contrast: ' + str(result['Low Contrast'][0]))
 
             progress_bar.progress(50)
