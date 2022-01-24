@@ -6,6 +6,7 @@ import imutils
 import requests
 import numpy as np
 import seaborn as sb
+from PIL import Image
 import streamlit as st
 import matplotlib.pyplot as plt
 from skimage.color import rgb2yuv
@@ -38,8 +39,9 @@ def draw_on_image(link, result, label):
 
     elif label == 'Out of Focus':
         gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-        laplacian = cv2.Laplacian(gray, cv2.CV_64F)
-        return laplacian
+        array = cv2.Laplacian(gray, cv2.CV_64F)
+        data = Image.fromarray(array)
+        return data
 
     else:
         cnts = result[label][1]
